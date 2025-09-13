@@ -1,19 +1,28 @@
-''' 
-Normalises and preprocesses images for training and testing use
-'''
-from PIL import Image
+
+from PIL import Image, ImageOps
 import glob
+import numpy as np
 
-class preprocessImages():
+class ImagePreprocessor():
+    """Preprocesses images for training and testing use
+    
+    Author: Matthew Cartwright
+
+    """
 
 
-    def __init__(self, imagesLocation):
-        self.imagesLocation = imagesLocation
+    def __init__(self):
         self.imagesList = []
         pass
 
+    def preprocessImages(self, imagesLocation, imgCols, imgRows):
+        self.loadImages(imagesLocation)
+        self.resizeImages(imgCols, imgRows)
+        self.greyscaleImages()
+        self.normaliseImages()
+
     def loadImages(self, imagesLocation):
-        for filename in glob.glob('data/*.*'):
+        for filename in glob.glob(imagesLocation):
             image = Image.open(filename)
             self.imagesList.append(image)
 
@@ -23,14 +32,33 @@ class preprocessImages():
             newList.append(image.resize((imgCols, imgRows)))
         self.imagesList = newList
 
-    def greyscaleImage(self):
-        # Not implemented unless colour convolution causes issues
-        pass
+    def greyscaleImages(self):
+        # Ideally to be replaced with full colour training
+        newList = []
+        for image in self.imagesList:
+            newList.append(ImageOps.grayscale(image))
+        self.imagesList = newList
 
-test = preprocessImages("test")
-test.loadImages("test")
-for item in test.imagesList:
-    print(item)
-test.resizeImages(150,100)
-for item in test.imagesList:
-    print(item)
+    def normaliseImages(self):
+        newList = []
+        for image in self.imagesList:
+            newList.append(np.asarray(image))
+        
+        numpyNewList = np.array(newList)
+        numpyNewList = numpyNewList.astype('float32')
+        numpyNewList /= 255
+
+        self.imagesList = numpyNewList
+        
+
+    def reset(self):
+        self.imagesList = []
+
+
+#test = ImagePreprocessor()
+#test.loadImages('data/*.*')
+#for item in test.imagesList:
+#    print(item)
+#test.resizeImages(150,100)
+#for item in test.imagesList:
+#    print(item)
