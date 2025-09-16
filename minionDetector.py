@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter.ttk import *
 import numpy
+from keras import saving
 
 class minionDetector():
     """Builds UI and applies model trained by trainModel.py to selected image file
@@ -10,12 +11,15 @@ class minionDetector():
     """
 
     def __init__(self):
+        """initialises the object: creating the window, building the UI and loading the CNN model"""
         self.window = Tk()
         self.window.title("Minion Meme Detector Bot!")
         self.window.configure(bg="#8a8880", width="480px", height="450px")
+        self.model = saving.load_model("minionDetector.keras")
+        self.buildUI()
 
     def buildUI(self):
-        """Creates and places the widgets that make the UI"""
+        """Creates and places the widgets that make the UI into the window"""
 
         # Labels
         self.titleLabel = Label(self.window, text="Minion Meme Detector Bot!", background="#8a8880", font=("Arial", 50))
@@ -37,20 +41,22 @@ class minionDetector():
         self.window.mainloop()
 
     def uploadAndDetect(self):
+        """Uploads the image then detects if it a minion meme or not"""
         self.uploadImage()
         self.detectImage()
 
     def uploadImage(self):
+        """Prompts the user to upload the image for detection"""
         pass
 
     def detectImage(self):
+        """Applies the CNN model to determine if the image is a minion meme or not, returning true if so and false otherwise"""
         pass
 
 
 
     def main():
         detectorWindow = minionDetector()
-        detectorWindow.buildUI()
 
     if __name__ == "__main__":
         main()
