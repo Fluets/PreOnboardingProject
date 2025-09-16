@@ -5,11 +5,11 @@ The Minion Meme Detector scans an image provided to it and tells you if it suspe
 This repository also includes the code used to make the CNN so you can make your own model using your own dataset.
 
 ## How to use
-Run the minionDetector.py file in a folder with preprocessImages.py and minionDetector.keras.
+Run the `minionDetector.py` file in a folder with `preprocessImages.py` and `minionDetector.keras`.
 Hit the large button and select your image.
 Done! It should give you its answer right away.
 
-To create your own model run trainModel.py in a folder with preprocessImages.py and two other folders: m and n where m contains images of minion memes and n contains other images.
+To create your own model run `trainModel.py` in a folder with `preprocessImages.py` and two other folders: `m` and `n` - where `m` contains images of minion memes and `n` contains other images.
 Please use the following formats for images: png, jpg, webp, jpeg, avif
 
 ## Evaluation
