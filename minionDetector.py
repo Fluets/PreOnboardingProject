@@ -4,6 +4,7 @@ from tkinter.ttk import *
 from tkinter import filedialog # Apparently needs to be explicitly imported
 from keras import saving
 from PIL import Image
+from preprocessImages import ImagePreprocessor
 
 class minionDetector():
     """Builds UI and applies model trained by trainModel.py to selected image file
@@ -19,6 +20,7 @@ class minionDetector():
         self.window.configure(bg="#8a8880", width="480px", height="450px")
         self.model = saving.load_model("minionDetector.keras")
         self.buildUI()
+        #self.imagePreprocessor = ImagePreprocessor()
 
     def buildUI(self):
         """Creates and places the widgets that make the UI into the window"""
@@ -46,7 +48,8 @@ class minionDetector():
     def uploadAndDetect(self):
         """Uploads the image then detects if it a minion meme or not"""
         self.uploadImage()
-        self.detectImage()
+        self.preprocessImage()
+        self.classifyImage()
 
     def uploadImage(self):
         """Prompts the user to upload the image for detection (-requires user to have saved image)"""
@@ -54,10 +57,28 @@ class minionDetector():
         path = filedialog.askopenfilename(filetypes=fileTypes)
         self.image = Image.open(path)
 
+    def preprocessImage(self):
+        imagePreprocessor = ImagePreprocessor()
+        self.processedImage = imagePreprocessor.preprocessSingleImage(self.image, 150, 100)
 
-    def detectImage(self):
+
+    def classifyImage(self):
         """Applies the CNN model to determine if the image is a minion meme or not, returning true if so and false otherwise"""
+        prediction = self.model.predict((self.processedImage), verbose=2)[0][1]
+        #print(prediction)
+        
+        if prediction > 0.5:
+            self.minionDetected()
+        else:
+            self.clearOfMinions()
+
+    def minionDetected():
         pass
+
+    def clearOfMinions():
+        pass
+        
+        
 
 
 
