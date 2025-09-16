@@ -50,7 +50,7 @@ class minionDetector():
 
     def uploadImage(self):
         """Prompts the user to upload the image for detection (-requires user to have saved image)"""
-        fileTypes = [("Image files", "*.png;*.jpg;*.jpeg;*.webp")]
+        fileTypes = [("Image files", "*.png;*.jpg;*.jpeg;*.webp;*.avif")]
         path = filedialog.askopenfilename(filetypes=fileTypes)
         self.image = Image.open(path)
 
