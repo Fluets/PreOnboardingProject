@@ -26,11 +26,11 @@ class minionDetector():
 
         # Labels
         self.titleLabel = Label(self.window, text="Minion Meme Detector Bot!", background="#8a8880", font=("Arial", 40))
-        self.instructionsLabel = Label(self.window, text="Upload the image and hit \"detect\" to verify!", font=("New Amsterdam", 15), width="140", wraplength="500", justify="left", background="#8a8880")
+        self.instructionsLabel = Label(self.window, text="Upload the image to verify!", font=("New Amsterdam", 15), width="140", wraplength="500", justify="left", background="#8a8880")
         self.resultLabel = tkinter.Label(self.window, text="Answer...", background="#8a8880", font=("Arial", 50), justify="right")
 
         # Buttons
-        self.uploadAndDetectButton = tkinter.Button(self.window, text="Detect", command=self.uploadAndDetect)
+        self.uploadAndDetectButton = tkinter.Button(self.window, text="Upload and Detect", command=self.uploadAndDetect)
         self.uploadAndDetectButton.config(height="10", width="50")
         self.exitButton = Button(self.window, text="Exit", command=self.quit)
 
