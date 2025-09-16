@@ -32,7 +32,7 @@ class minionDetector():
         # Buttons
         self.uploadAndDetectButton = tkinter.Button(self.window, text="Detect", command=self.uploadAndDetect)
         self.uploadAndDetectButton.config(height="10", width="50")
-        self.exitButton = Button(self.window, text="Exit", command=self.window.quit)
+        self.exitButton = Button(self.window, text="Exit", command=self.quit)
 
         # Place widgets
         self.titleLabel.place(relx=0.5, rely=0.1, anchor=CENTER)
@@ -79,6 +79,10 @@ class minionDetector():
     def clearOfMinions(self):
         """Sets the label to display the result"""
         self.resultLabel.config(text="No minions detected!", fg="green", font=("Arial", 40))
+
+    def quit(self):
+        """Explicitly quitting to avoid having to press the button twice"""
+        quit()
         
         
 
