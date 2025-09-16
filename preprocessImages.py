@@ -1,4 +1,3 @@
-
 from PIL import Image, ImageOps
 import glob
 import numpy as np
@@ -72,11 +71,3 @@ class ImagePreprocessor():
         """Reset object after to use for future use"""
         self.imagesList = []
 
-
-#test = ImagePreprocessor()
-#test.loadImages('data/*.*')
-#for item in test.imagesList:
-#    print(item)
-#test.resizeImages(150,100)
-#for item in test.imagesList:
-#    print(item)

@@ -65,7 +65,6 @@ class minionDetector():
     def classifyImage(self):
         """Applies the CNN model to determine if the image is a minion meme or not, returning true if so and false otherwise"""
         prediction = self.model.predict((self.processedImage), verbose=0)[0][1]
-        #print(prediction)
         
         if prediction > 0.5:
             self.minionDetected()
@@ -73,7 +72,7 @@ class minionDetector():
             self.clearOfMinions()
 
     def minionDetected(self):
-        
+        """Sets the label to display the result"""
         self.resultLabel.config(text="Minion meme detected!", fg="red", font=("Arial", 40))
 
     def clearOfMinions(self):

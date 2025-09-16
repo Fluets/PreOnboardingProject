@@ -18,12 +18,12 @@ class modelTrainer():
 
         # Positive images
         imagePreprocessor = ImagePreprocessor()
-        imagePreprocessor.preprocessImages(dataLocation + '/m/*.*', 150, 100) #! SHOULDN'T HARD CODE THESE VALUES
+        imagePreprocessor.preprocessImages(dataLocation + '/m/*.*', 150, 100)
         self.data.append(imagePreprocessor.imagesList)
         imagePreprocessor.reset()
 
         # Negative images        
-        imagePreprocessor.preprocessImages(dataLocation + '/n/*.*', 150, 100) #! SHOULDN'T HARD CODE THESE VALUES
+        imagePreprocessor.preprocessImages(dataLocation + '/n/*.*', 150, 100)
         self.data.append(imagePreprocessor.imagesList)
         imagePreprocessor.reset()
         
@@ -58,18 +58,6 @@ class modelTrainer():
         yTrain = utils.to_categorical(yTrain, 2)
         yTest = utils.to_categorical(yTest, 2)
         
-
-        # Convert python arrays to numpy arrays OLD
-        #self.xNumpyData = np.array(xData)
-        #self.yNumpyData = np.array(yData)
-
-        # Assign numpy classes to y values (2 classes as pos/neg options) OLD
-        #self.yNumpyData = utils.to_categorical(self.yNumpyData, 2)
-
-        # Mix and split the data OLD
-        #self.xNumpyData, self.yNumpyData = self.mixData(self.xNumpyData, self.yNumpyData)
-        #xTrain, xTest, yTrain, yTest = self.splitData(self.xNumpyData, self.yNumpyData, 0.1)
-
         # Create the model
         self.model = self.createCNN()
         
@@ -122,24 +110,6 @@ class modelTrainer():
 
 
 
-test = modelTrainer("data")
-test.trainModel()
-test.saveCNN("minionDetector")
-#for list in test.data:
-#    print("========================")
-#    for item in list:
-#        print(item)
-# 'data/*.*'
-
-        #print()
-        #print()
-        #print()
-        #print()
-        #for i in range(0,5):
-        #    print(xTrain[i])
-        #print()
-        #print()
-        #print()
-        #print()
-        #for i in range(0,5):
-        #    print(yTrain[i])
+trainer = modelTrainer("data")
+trainer.trainModel()
+trainer.saveCNN("minionDetector")
