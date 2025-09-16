@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter.ttk import *
 from tkinter import filedialog # Apparently needs to be explicitly imported
 from keras import saving
+from PIL import Image
 
 class minionDetector():
     """Builds UI and applies model trained by trainModel.py to selected image file
