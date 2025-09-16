@@ -124,7 +124,7 @@ class modelTrainer():
 
 test = modelTrainer("data")
 test.trainModel()
-test.saveCNN("testModel1")
+test.saveCNN("minionDetector")
 #for list in test.data:
 #    print("========================")
 #    for item in list:
