@@ -50,6 +50,17 @@ class ImagePreprocessor():
 
         self.imagesList = numpyNewList
         
+    def preprocessSingleImage(self, image, imgCols, imgRows):
+        image = image.resize((imgCols, imgRows))
+        image = ImageOps.grayscale(image)
+        image = np.asarray(image)
+
+        singleImageList = [image]
+        numpySingleImageList = np.array(singleImageList)
+        numpySingleImageList = numpySingleImageList.astype('float32')
+        numpySingleImageList /= 255
+
+        return numpySingleImageList
 
     def reset(self):
         self.imagesList = []
