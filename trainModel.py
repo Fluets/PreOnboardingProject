@@ -71,13 +71,13 @@ class modelTrainer():
         #xTrain, xTest, yTrain, yTest = self.splitData(self.xNumpyData, self.yNumpyData, 0.1)
 
         # Create the model
-        model = self.createCNN()
+        self.model = self.createCNN()
         
         # Train the model
-        model.fit(xTrain, yTrain, batch_size=32, epochs=12, verbose = 2, validation_data=(xTest, yTest))
-        score = model.evaluate(xTest, yTest, verbose=0)
+        self.model.fit(xTrain, yTrain, batch_size=32, epochs=12, verbose = 0, validation_data=(xTest, yTest))
+        score = self.model.evaluate(xTest, yTest, verbose=2)
         print(score)
-        return model
+        return self.model
 
 
     def testModel(self, model):
@@ -115,11 +115,16 @@ class modelTrainer():
         model.summary()
 
         return model
+    
+    def saveCNN(self, modelName):
+        """Saves the CNN model"""
+        self.model.save(modelName+".keras")
 
 
 
 test = modelTrainer("data")
 test.trainModel()
+test.saveCNN("testModel1")
 #for list in test.data:
 #    print("========================")
 #    for item in list:
