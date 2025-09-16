@@ -20,7 +20,6 @@ class minionDetector():
         self.window.configure(bg="#8a8880", width="480px", height="450px")
         self.model = saving.load_model("minionDetector.keras")
         self.buildUI()
-        #self.imagePreprocessor = ImagePreprocessor()
 
     def buildUI(self):
         """Creates and places the widgets that make the UI into the window"""
@@ -28,7 +27,7 @@ class minionDetector():
         # Labels
         self.titleLabel = Label(self.window, text="Minion Meme Detector Bot!", background="#8a8880", font=("Arial", 40))
         self.instructionsLabel = Label(self.window, text="Upload the image and hit \"detect\" to verify!", font=("New Amsterdam", 15), width="140", wraplength="500", justify="left", background="#8a8880")
-        self.resultLabel = Label(self.window, text="Answer...", background="#8a8880", font=("Arial", 50), justify="right")
+        self.resultLabel = tkinter.Label(self.window, text="Answer...", background="#8a8880", font=("Arial", 50), justify="right")
 
         # Buttons
         self.uploadAndDetectButton = tkinter.Button(self.window, text="Detect", command=self.uploadAndDetect)
@@ -46,7 +45,7 @@ class minionDetector():
         self.window.mainloop()
 
     def uploadAndDetect(self):
-        """Uploads the image then detects if it a minion meme or not"""
+        """Uploads the image, preprocesses it, then detects if it a minion meme or not"""
         self.uploadImage()
         self.preprocessImage()
         self.classifyImage()
@@ -58,13 +57,14 @@ class minionDetector():
         self.image = Image.open(path)
 
     def preprocessImage(self):
+        """Uses the preprocessor to preprocess the provided image"""
         imagePreprocessor = ImagePreprocessor()
         self.processedImage = imagePreprocessor.preprocessSingleImage(self.image, 150, 100)
 
 
     def classifyImage(self):
         """Applies the CNN model to determine if the image is a minion meme or not, returning true if so and false otherwise"""
-        prediction = self.model.predict((self.processedImage), verbose=2)[0][1]
+        prediction = self.model.predict((self.processedImage), verbose=0)[0][1]
         #print(prediction)
         
         if prediction > 0.5:
@@ -72,11 +72,13 @@ class minionDetector():
         else:
             self.clearOfMinions()
 
-    def minionDetected():
-        pass
+    def minionDetected(self):
+        
+        self.resultLabel.config(text="Minion meme detected!", fg="red", font=("Arial", 40))
 
-    def clearOfMinions():
-        pass
+    def clearOfMinions(self):
+        """Sets the label to display the result"""
+        self.resultLabel.config(text="No minions detected!", fg="green", font=("Arial", 40))
         
         
 
