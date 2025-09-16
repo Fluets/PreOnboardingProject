@@ -1,6 +1,7 @@
+import tkinter # Imported explicitly to allow editing of button attributes, see: https://stackoverflow.com/questions/60928474/tkinter-tclerror-unknown-option-on-widget-attributes
 from tkinter import *
 from tkinter.ttk import *
-import numpy
+from tkinter import filedialog # Apparently needs to be explicitly imported
 from keras import saving
 
 class minionDetector():
@@ -22,19 +23,20 @@ class minionDetector():
         """Creates and places the widgets that make the UI into the window"""
 
         # Labels
-        self.titleLabel = Label(self.window, text="Minion Meme Detector Bot!", background="#8a8880", font=("Arial", 50))
-        self.instructionsLabel = Label(self.window, text="Upload the image and hit \"detect\" to verify!", font=("New Amsterdam", 15), width="70", wraplength="250", justify="left", background="#8a8880")
+        self.titleLabel = Label(self.window, text="Minion Meme Detector Bot!", background="#8a8880", font=("Arial", 40))
+        self.instructionsLabel = Label(self.window, text="Upload the image and hit \"detect\" to verify!", font=("New Amsterdam", 15), width="140", wraplength="500", justify="left", background="#8a8880")
         self.resultLabel = Label(self.window, text="Answer...", background="#8a8880", font=("Arial", 50), justify="right")
 
         # Buttons
-        self.uploadAndDetectButton = Button(self.window, text="Rate", command=self.uploadAndDetect)
+        self.uploadAndDetectButton = tkinter.Button(self.window, text="Detect", command=self.uploadAndDetect)
+        self.uploadAndDetectButton.config(height="10", width="50")
         self.exitButton = Button(self.window, text="Exit", command=self.window.quit)
 
         # Place widgets
         self.titleLabel.place(relx=0.5, rely=0.1, anchor=CENTER)
         self.instructionsLabel.place(relx=0.1, rely=0.2)
-        self.resultLabel.place(relx=0.1, rely=0.4)
-        self.uploadAndDetectButton.place(relx=0.2, rely=0.8)
+        self.uploadAndDetectButton.place(relx=0.1, rely=0.4)
+        self.resultLabel.place(relx=0.1, rely=0.7)
         self.exitButton.place(relx=0.85, rely=0.9)
 
         # Run the window
@@ -46,8 +48,11 @@ class minionDetector():
         self.detectImage()
 
     def uploadImage(self):
-        """Prompts the user to upload the image for detection"""
-        pass
+        """Prompts the user to upload the image for detection (-requires user to have saved image)"""
+        fileTypes = [("Image files", "*.png;*.jpg;*.jpeg;*.webp")]
+        path = filedialog.askopenfilename(filetypes=fileTypes)
+        self.image = Image.open(path)
+
 
     def detectImage(self):
         """Applies the CNN model to determine if the image is a minion meme or not, returning true if so and false otherwise"""
@@ -55,8 +60,9 @@ class minionDetector():
 
 
 
-    def main():
-        detectorWindow = minionDetector()
+def main():
+    detectorWindow = minionDetector()
+    detectorWindow.buildUI()
 
-    if __name__ == "__main__":
-        main()
+if __name__ == "__main__":
+    main()
